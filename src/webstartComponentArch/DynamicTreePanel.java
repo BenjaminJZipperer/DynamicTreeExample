@@ -32,12 +32,13 @@ public class DynamicTreePanel extends JPanel implements ActionListener {
         treePanel = new DynamicTree();
         populateTree(treePanel);
 
-        JButton addButton = new JButton("Add");
+        JButton addButton = new JButton("Hinzufügen");
         addButton.setActionCommand(ADD_COMMAND);
         addButton.addActionListener(this);
-        
-        JButton removeButton = new JButton("Remove");
-       
+        /***/
+        JButton removeButton = new JButton("Entfernen");
+        removeButton.setActionCommand(ADD_COMMAND);
+        removeButton.addActionListener(this);
         
         JButton clearButton = new JButton("Clear");
      
@@ -74,8 +75,9 @@ public class DynamicTreePanel extends JPanel implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		 
 		
 	}
     // ...
@@ -89,7 +91,7 @@ class DynamicTree extends JPanel {
 	  public DynamicTree() {
 	    super(new GridLayout(1, 0));
 
-	    rootNode = new DefaultMutableTreeNode("Root Node");
+	    rootNode = new DefaultMutableTreeNode("Projekt 001");
 	    treeModel = new DefaultTreeModel(rootNode);
 
 	    tree = new JTree(treeModel);
