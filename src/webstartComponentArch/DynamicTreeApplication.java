@@ -17,6 +17,7 @@ public class DynamicTreeApplication extends JFrame {
 	        newContentPane.setOpaque(true); 
 	        setContentPane(newContentPane);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        setLocation(390, 120);
 	        pack();
 	        setVisible(true);
 	    }    

@@ -22,7 +22,8 @@ public class DynamicTreePanel extends JPanel implements ActionListener {
     private static String ADD_COMMAND = "add";
     private static String REMOVE_COMMAND = "remove";
     private static String CLEAR_COMMAND = "clear";
-    
+    static JButton addButton ;
+    static JButton removeButton ;
     private DynamicTree treePanel;
 
     public DynamicTreePanel() {
@@ -32,11 +33,13 @@ public class DynamicTreePanel extends JPanel implements ActionListener {
         treePanel = new DynamicTree();
         populateTree(treePanel);
 
-        JButton addButton = new JButton("Hinzufügen");
+
+        addButton = new JButton("Bauteil hinzu");
         addButton.setActionCommand(ADD_COMMAND);
         addButton.addActionListener(this);
-        /***/
-        JButton removeButton = new JButton("Entfernen");
+        
+        removeButton = new JButton("Bauteil entfernen ");
+
         removeButton.setActionCommand(ADD_COMMAND);
         removeButton.addActionListener(this);
         
@@ -44,8 +47,9 @@ public class DynamicTreePanel extends JPanel implements ActionListener {
      
         
         //Lay everything out.
+        
         treePanel.setPreferredSize(
-            new Dimension(300, 150));
+            new Dimension(300, 350));
         add(treePanel, BorderLayout.CENTER);
 
         JPanel panel = new JPanel(new GridLayout(0,3));
@@ -55,12 +59,18 @@ public class DynamicTreePanel extends JPanel implements ActionListener {
         add(panel, BorderLayout.SOUTH);
     }
 
-	private void populateTree(DynamicTree treePanel2) {
-		String p1Name = new String("Parent 1");
-	    String p2Name = new String("Parent 2");
+	private void populateTree(DynamicTree treePanel) {
+		String p1Name = new String("Kondensatoren/Capacitors");
+	    String p2Name = new String("Widerstände/Resistors");
+	    // fill from txt file:
 	    String c1Name = new String("Child 1");
 	    String c2Name = new String("Child 2");
-
+	    String r1Name = new String("RES 1");
+	    String r2Name = new String("RES 2");
+	    String r3Name = new String("RES 3");
+	    String r4Name = new String("RES 4");
+	    String r5Name = new String("RES 5");// Alylie
+	    
 	    DefaultMutableTreeNode p1, p2;
 
 	    p1 = treePanel.addObject(null, p1Name);
@@ -69,29 +79,39 @@ public class DynamicTreePanel extends JPanel implements ActionListener {
 	    treePanel.addObject(p1, c1Name);
 	    treePanel.addObject(p1, c2Name);
 
-	    treePanel.addObject(p2, c1Name);
-	    treePanel.addObject(p2, c2Name);
+	    treePanel.addObject(p2, r1Name);
+	    treePanel.addObject(p2, r2Name);
 		
+	    
+	    
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) 
-	{
-		 
+
+	public void actionPerformed(ActionEvent arg0) {
+     
+    if(arg0.getSource() == removeButton)
+    {
+    	 DynamicTree.removeCurrentNode();
+    	 DynamicTree.clear();
+    }
+
 		
 	}
     // ...
 }
 class DynamicTree extends JPanel {
-	  protected DefaultMutableTreeNode rootNode;
-	  protected DefaultTreeModel treeModel;
-	  protected JTree tree;
-	  private Toolkit toolkit = Toolkit.getDefaultToolkit();
+	  protected static DefaultMutableTreeNode rootNode;
+	  protected static DefaultTreeModel treeModel;
+	  protected static JTree tree;
+	  private static Toolkit toolkit = Toolkit.getDefaultToolkit();
 
 	  public DynamicTree() {
 	    super(new GridLayout(1, 0));
+//<<<<<<< Updated upstream
 
 	    rootNode = new DefaultMutableTreeNode("Projekt 001");
+	   
 	    treeModel = new DefaultTreeModel(rootNode);
 
 	    tree = new JTree(treeModel);
@@ -105,13 +125,15 @@ class DynamicTree extends JPanel {
 	  }
 
 	  /** Remove all nodes except the root node. */
-	  public void clear() {
+	  public static void clear() {
+		  System.out.println("clear ()");
 	    rootNode.removeAllChildren();
 	    treeModel.reload();
 	  }
 
 	  /** Remove the currently selected node. */
-	  public void removeCurrentNode() {
+	  public static void removeCurrentNode() {
+		  System.out.println("removeCurrentNode()");
 	    TreePath currentSelection = tree.getSelectionPath();
 	    if (currentSelection != null) {
 	      DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) (currentSelection
